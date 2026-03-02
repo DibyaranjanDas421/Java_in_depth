@@ -30,5 +30,6 @@ public class HashMapExample {
 
         System.out.println(map.containsKey(2));
         System.out.println(map.containsValue("Dibya"));
+
     }
 }
