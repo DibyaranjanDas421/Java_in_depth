@@ -1,4 +1,4 @@
-package collection.CopyOnWriteArrayList;
+package collection.list.CopyOnWriteArrayList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
