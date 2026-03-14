@@ -2,6 +2,7 @@ package stream_questions;
 
 import java.lang.StackWalker.Option;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +131,52 @@ public class IntermidiateLevelQuestion {
                                 .collect(Collectors.groupingBy(x -> x, Collectors.counting()));
 
                 System.out.println("wordOccurrences :" + wordOccurrences);
+                // 36. Count the Occurrences of Each Word in a String
+                String inputs = "hello world hello";
+                Map<String, Long> wordcounts = Arrays.stream(inputs.split(" "))
+                                .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+                System.out.println("woedCount :" + wordcounts);
+
+                // 37. Count the Occurrences of Each Vowel in a String
+                Map<Character, Long> vowels = inputs.chars()
+                                .mapToObj(c -> (char) c)
+                                .filter(c -> "aeiou".contains(String.valueOf(c)))
+                                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+                System.out.println("vowels:" + vowels);
+                // 38. Count the Occurrences of Each Digit in a String
+                String digitCheck = "hello 123 world 456";
+                Map<Character, Long> digicount = digitCheck.chars()
+                                .mapToObj(c -> (char) c)
+                                .filter(c -> Character.isDigit(c))
+                                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+                System.out.println("digicount :" + digicount);
+                // 39. Reverse a List Using Streams
+                List<Integer> reverse = List.of(1, 2, 3, 4, 5);
+                List<Integer> revesed = reverse.stream()
+                                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+                                        Collections.reverse(list);
+                                        return list;
+                                }));
+                System.out.println("revered :" + revesed);
+
+                // 40. Reverse a String Using Streams
+                String reverseString = "hello";
+
+                String reversed = reverseString.chars()
+                                .mapToObj(c -> String.valueOf((char) c))
+                                .collect(Collectors.collectingAndThen(
+                                                Collectors.toList(),
+                                                list -> {
+                                                        Collections.reverse(list);
+                                                        return String.join("", list);
+                                                }));
+
+                System.out.println(reversed);
+
+                // String reversed = input.chars()
+                // .mapToObj(c -> String.valueOf((char) c))
+                // .reduce("", (a, b) -> b + a);
+                // System.out.println("Reversed String: " + reversed);
 
         }
 }
