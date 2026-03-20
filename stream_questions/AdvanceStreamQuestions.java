@@ -26,7 +26,7 @@ public class AdvanceStreamQuestions {
                                                 .charAt(word.length() - 1 - i));
         }
 
-        public static void main(String[] args) {
+        public static void main(String[] args) throws IOException {
                 // 41. Find the Most Frequent Element in a List
                 List<String> words = List.of("apple", "banana", "apple", "orange", "banana", "apple");
 
@@ -210,6 +210,74 @@ public class AdvanceStreamQuestions {
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
+                // //61-Filter employees who belong to the "IT" department
+
+                // From those, select employees with salary greater than 50,000
+
+                // Transform the result into a list of employee names only
+
+                // Return the final result as a List<String>
+
+                List<Employee> employees = List.of(
+                                new Employee(1, "Amit", 60000, "IT"),
+                                new Employee(2, "Neha", 75000, "IT"),
+                                new Employee(3, "Rahul", 45000, "HR"),
+                                new Employee(4, "Priya", 80000, "IT"),
+                                new Employee(5, "Ankit", 30000, "Finance"));
+                List<String> result = employees.stream()
+                                .filter(x -> x.department.equals("IT"))
+                                .filter(x -> x.salary > 50000)
+                                .map(Employee::getName)
+                                .toList();
+                System.out.println("results :" + result);
+
+                // 62-Group High-Paid Employees by Department
+                LinkedHashMap<String, List<String>> highPaidEmployee = employees.stream()
+                                .filter(e -> e.salary > 50000)
+                                .collect(Collectors.groupingBy(x -> x.department, LinkedHashMap::new,
+                                                Collectors.mapping(Employee::getName, Collectors.toList())));
+                System.out.println("Group High-Paid Employees by Department :" + highPaidEmployee);
+
+                // 63-Calculate Average Salary by Department from a CSV File
+                Path p1 = Paths.get("D:\\Java_In_depth\\stream_questions\\data.csv");
+                Map<String, Double> avgSalary = Files.lines(p1)
+                                .skip(1)
+                                .map(line -> line.split(","))
+                                .collect(Collectors.groupingBy(fields -> fields[1],
+                                                Collectors.averagingDouble(fields -> Double.parseDouble(fields[2]))));
+                System.out.println("Average Salary:" + avgSalary);
+
         }
 
+}
+
+class Employee {
+        int id;
+        String name;
+        double salary;
+        String department;
+
+        public Employee(int id, String name, double salary, String department) {
+                this.id = id;
+                this.name = name;
+                this.salary = salary;
+                this.department = department;
+        }
+
+        // Getter methods (important for Streams)
+        public int getId() {
+                return id;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public double getSalary() {
+                return salary;
+        }
+
+        public String getDepartment() {
+                return department;
+        }
 }
