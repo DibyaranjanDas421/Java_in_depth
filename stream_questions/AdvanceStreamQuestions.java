@@ -1,6 +1,10 @@
 
 package stream_questions;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
@@ -143,7 +147,69 @@ public class AdvanceStreamQuestions {
                                 .max(Comparator.comparingInt(String::length))
                                 .orElse("");
                 System.out.println("Longest Palindrome: " + longestPalindrome);
+                // 53. Find the Shortest Palindrome in a List of Strings
+                Optional<String> shortestPalindrome = palindromeWord.stream()
+                                .filter(AdvanceStreamQuestions::isPalindrome)
+                                .sorted()
+                                .findFirst();
+                System.out.println("shortestPalindrome :" + shortestPalindrome);
 
+                // 54. Find the Longest Word in a String
+                String inputs = "hello world this is a test";
+                String[] longStrings = inputs.split(" ");
+                Optional<String> longestWord = Arrays.stream(longStrings).max(Comparator.comparing(String::length));
+                System.out.println("longestWord :" + longestWord);
+
+                // 55. Find the Shortest Word in a String
+                Optional<String> shortestWord = Arrays.stream(longStrings).min(Comparator.comparing(String::length));
+                System.out.println("shortestWord :" + shortestWord);
+
+                // 56. Find the Number of Words in a String
+                List<Integer> countWords = Arrays.stream(longStrings).map(String::length).toList();
+                System.out.println("countWords:" + countWords);
+
+                long wordCount = Arrays.stream(input.split(" ")).count();
+                System.out.println("Word Count: " + wordCount);
+                // 57. Find the Number of Lines in a File
+
+                Path path = Paths.get("D:\\Java_In_depth\\collection\\Test.java");
+
+                try {
+                        long lineCount = Files.lines(path).count();
+                        System.out.println("line count" + lineCount);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+                // 58. Find the Number of Characters in a File
+                try {
+                        long charCount = Files.lines(path)
+                                        .flatMapToInt(String::chars)
+                                        .count();
+                        System.out.println("charCount :" + charCount);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+
+                // 59. Find the Number of Words in a File
+                try {
+                        long wordCounts = Files.lines(path)
+                                        .flatMap(line -> Arrays.stream(line.split(" ")))
+                                        .count();
+                        System.out.println("Word Count: " + wordCounts);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+
+                // 60. Find the Number of Unique Words in a File
+                try {
+                        long uniqueWord = Files.lines(path)
+                                        .flatMap(line -> Arrays.stream(line.split(" ")))
+                                        .distinct()
+                                        .count();
+                        System.out.println("uniqueWord: " + uniqueWord);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
         }
 
 }
