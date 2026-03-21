@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 public class AdvanceStreamQuestions {
 
@@ -247,6 +249,75 @@ public class AdvanceStreamQuestions {
                                                 Collectors.averagingDouble(fields -> Double.parseDouble(fields[2]))));
                 System.out.println("Average Salary:" + avgSalary);
 
+                // //64- Problem Statement
+
+                // You are given a JSON string representing a list of people:
+
+                // [
+                // {"name":"Alice","age":25},
+                // {"name":"Bob","age":30}
+                // ]
+                // Your Task:
+                // Convert the JSON string into a list of Person objects using Jackson.
+                // From the list, filter out only those people whose age is greater than 25.
+                // Extract the names of those filtered people.
+                // Return the result as a List<String>.
+
+                // String json =
+                // "[{\"name\":\"Amit\",\"age\":25},{\"name\":\"Rohit\",\"age\":30}]";
+                // List<Person> people = new ObjectMapper().readValue(json, new
+                // TypeReference<List<Person>>() {
+                // });
+                // List<String> validNames = people.stream()
+                // .filter(p -> p.getAge() > 25)
+                // .map(Person::getName)
+                // .collect(Collectors.toList());
+                // System.out.println("Valid Names: " + validNames);
+
+                // 64. Combine Multiple Asynchronous Tasks
+                CompletableFuture<List<Integer>> future1 = CompletableFuture.supplyAsync(() -> List.of(1, 2, 3));
+                CompletableFuture<List<Integer>> future2 = CompletableFuture.supplyAsync(() -> List.of(4, 5, 6));
+
+                List<Integer> list = Stream.of(future1, future2)
+                                .map(CompletableFuture::join)
+                                .flatMap(List::stream)
+                                .toList();
+                System.out.println("Async task:" + list);
+
+                // 65. Process Large Datasets in Parallel
+
+                List<Integer> largeData = IntStream.rangeClosed(0, 100000).boxed().toList();
+
+                int largeSum = largeData.parallelStream()
+                                .mapToInt(Integer::intValue)
+                                .sum();
+                System.out.println("largeSum :" + largeSum);
+
+                // 66- Handle Exceptions in Streams
+                List<String> numbers = List.of("1", "2", "three", "4");
+
+                List<Integer> parsedInt = numbers.stream()
+                                .flatMap(s -> {
+                                        try {
+                                                return Stream.of(Integer.parseInt(s));
+                                        } catch (NumberFormatException e) {
+                                                return Stream.empty();
+                                        }
+                                }).collect(Collectors.toList());
+                System.out.println("ParsedNumber :" + parsedInt);
+
+                // 68. Group Employees by Department and Calculate Average Salary
+                List<Employee> employees1 = List.of(
+                                new Employee(1, "Amit", 60000, "IT"),
+                                new Employee(2, "Neha", 75000, "IT"),
+                                new Employee(3, "Rahul", 45000, "HR"),
+                                new Employee(4, "Priya", 80000, "IT"),
+                                new Employee(5, "Ankit", 30000, "Finance"));
+                Map<String, Double> avgSalaryByDept = employees1.stream()
+                                .collect(Collectors.groupingBy(Employee::getDepartment,
+                                                Collectors.averagingDouble(Employee::getSalary)));
+                System.out.println("Average Salary by Department: " + avgSalaryByDept);
+
         }
 
 }
@@ -280,4 +351,23 @@ class Employee {
         public String getDepartment() {
                 return department;
         }
+}
+
+class Person {
+        private String name;
+        private Integer age;
+
+        public Person(String name, Integer age) {
+                this.name = name;
+                this.age = age;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public Integer getAge() {
+                return age;
+        }
+
 }
