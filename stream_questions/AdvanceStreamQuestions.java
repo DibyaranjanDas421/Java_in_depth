@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
 import java.util.LinkedHashMap;
@@ -317,6 +318,35 @@ public class AdvanceStreamQuestions {
                                 .collect(Collectors.groupingBy(Employee::getDepartment,
                                                 Collectors.averagingDouble(Employee::getSalary)));
                 System.out.println("Average Salary by Department: " + avgSalaryByDept);
+                // 69-Use Custom Collectors to Calculate Statistics
+                List<Integer> nums = List.of(1, 2, 3, 4, 5);
+
+                DoubleSummaryStatistics statictics = nums.stream()
+                                .collect(Collectors.summarizingDouble(Integer::intValue));
+                // 70- Find the Top N Highest-Paid Employees
+                System.out.println(employees1.stream()
+                                .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+                                .limit(2)
+                                .map(Employee::getName)
+                                .collect(Collectors.toList()));
+                // 71. Find the Top N Most Frequent Words in a Text File
+
+                Path path3 = Paths.get("D:\\Java_In_depth\\stream_questions\\top_n_words.csv");
+                try (Stream<String> lines = Files.lines(path3)) {
+                        List<String> topNWords = lines
+                                        .map(line -> line.toLowerCase().replaceAll("[^a-z ]", " "))
+                                        .flatMap(line -> Arrays.stream(line.split("\\s+")))
+                                        .filter(word -> !word.isEmpty())
+                                        .collect(Collectors.groupingBy(w -> w, Collectors.counting()))
+                                        .entrySet()
+                                        .stream()
+                                        .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                                        .limit(3)
+                                        .map(Map.Entry::getKey)
+                                        .sorted(Comparator.naturalOrder())
+                                        .toList();
+                        System.out.println("topNWords :" + topNWords);
+                }
 
         }
 
