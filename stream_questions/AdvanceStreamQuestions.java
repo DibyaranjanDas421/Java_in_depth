@@ -383,11 +383,11 @@ class Employee {
         }
 }
 
-class Person {
+class Person1 {
         private String name;
         private Integer age;
 
-        public Person(String name, Integer age) {
+        public Person1(String name, Integer age) {
                 this.name = name;
                 this.age = age;
         }
