@@ -1,5 +1,6 @@
 package stream_questions;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class StreamStringManipulation {
@@ -14,6 +15,13 @@ public class StreamStringManipulation {
                 .collect(Collectors.joining());
 
         System.out.println(result);
+
+        // 72. Remove All Consonants from a String
+        String removeconsunant = replaced.chars()
+                .filter(x -> "aeiou".contains(String.valueOf((char) x)))
+                .mapToObj(x -> String.valueOf((char) x))
+                .collect(Collectors.joining());
+        System.out.println("removeconsunant :" + removeconsunant);
 
     }
 
