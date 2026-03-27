@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class StreamAllRevison {
@@ -59,6 +60,30 @@ public class StreamAllRevison {
                                 .map(x -> x.getKey())
                                 .orElse(null);
                 System.out.println("requent :" + frequent);
+
+                // Find the Product of All Elements in a List
+                Integer products = numbers.stream()
+                                .reduce(1, (x, y) -> x * y);
+                System.out.println("products :" + products);
+
+                // Find the Sum of Digits of a Number
+                int number = 12345;
+                Integer sumofdigits = String.valueOf(number)
+                                .chars()
+                                .map(Character::getNumericValue)
+                                .sum();
+                System.out.println("sumofdigits :" + sumofdigits);
+
+                // Find the Least Frequent Element in a List
+
+                String leastFrequequent = words.stream()
+                                .collect(Collectors.groupingBy(x -> x, Collectors.counting()))
+                                .entrySet()
+                                .stream()
+                                .min(Map.Entry.comparingByValue())
+                                .map(x -> x.getKey())
+                                .orElse(null);
+                System.out.println("leastFrequequent :" + leastFrequequent);
 
         }
 

@@ -23,6 +23,16 @@ public class StreamStringManipulation {
                 .collect(Collectors.joining());
         System.out.println("removeconsunant :" + removeconsunant);
 
+        // 73. Remove All Digits from a String
+        String inputs = "hello 123 world";
+        String removeSpace = inputs.replace(" ", "");
+
+        String removeDigit = removeSpace.chars()
+                .filter(c -> !Character.isDigit(c))
+                .mapToObj(x -> String.valueOf((char) x))
+                .collect(Collectors.joining());
+        System.out.println("removeDigit :" + removeDigit);
+
     }
 
 }

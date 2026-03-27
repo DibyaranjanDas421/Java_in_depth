@@ -60,7 +60,7 @@ public class AdvanceStreamQuestions {
                                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
                                 .entrySet()
                                 .stream()
-                                .filter(entry -> entry.getValue() == 2)
+                                .filter(entry -> entry.getValue() > 2)
                                 .forEach(System.out::println);
 
                 String input = "hello";
@@ -83,11 +83,17 @@ public class AdvanceStreamQuestions {
                 System.out.println("Repeated:" + Repeated.get());
 
                 // 45. Check if a String is a Palindrome
+
+                
                 String inputPalindrome = "madam";
                 Boolean isPalindrome = IntStream.range(0, inputPalindrome.length() / 2)
                                 .allMatch(i -> inputPalindrome.charAt(i) == inputPalindrome
                                                 .charAt(inputPalindrome.length() - 1 - i));
                 System.out.println("isPalindrome:" + isPalindrome);
+
+
+
+
                 // 46. Find All Anagrams of a String from a List
                 List<String> wordsAnagrams = List.of("listen", "silent", "enlist", "google", "inlets");
                 String target = "silent";
