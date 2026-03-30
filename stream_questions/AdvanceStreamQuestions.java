@@ -73,6 +73,7 @@ public class AdvanceStreamQuestions {
                                 .findFirst();
                 System.out.println("nonRepeat:" + nonRepeat.get());
                 // 44. Find the First Repeated Character in a String
+                
                 Optional<Map.Entry<Character, Long>> Repeated = input.chars()
                                 .mapToObj(c -> (char) c)
                                 .collect(Collectors.groupingBy(c -> c, LinkedHashMap::new, Collectors.counting()))

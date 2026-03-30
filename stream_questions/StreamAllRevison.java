@@ -1,11 +1,13 @@
 package stream_questions;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class StreamAllRevison {
         public static void main(String[] args) {
@@ -84,6 +86,29 @@ public class StreamAllRevison {
                                 .map(x -> x.getKey())
                                 .orElse(null);
                 System.out.println("leastFrequequent :" + leastFrequequent);
+
+                // Find the Average of All Elements in a List
+                Double avg1 = numbers.stream()
+                                .collect(Collectors.averagingDouble(x -> x));
+                System.out.println("Average :" + avg1);
+
+                // Find the Factorial of a Number
+                int num = 10;
+                int factorial = IntStream.rangeClosed(1, num)
+                                .reduce(1, (a, b) -> a * b);
+                System.out.println("Factorial: " + factorial);
+                // Duplicate Charecters in a String
+                String inpuString = "I Love Java";
+                String duplicate = inpuString.chars()
+                                .mapToObj(c -> (char) c)
+                                .filter(x -> x != ' ')
+                                .collect(Collectors.groupingBy(x -> x, Collectors.counting()))
+                                .entrySet()
+                                .stream()
+                                .filter(x -> x.getValue() > 1)
+                                .map(x -> x.getKey().toString())
+                                .collect(Collectors.joining(", "));
+                System.out.println(" duplicate :" + duplicate);
 
         }
 
