@@ -1,4 +1,3 @@
-package stream_questions;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -41,6 +40,25 @@ public class StreamStringManipulation {
                                 .mapToObj(x -> String.valueOf((char) x))
                                 .collect(Collectors.joining());
                 System.out.println("removeSplecialCharacter :" + removeSplecialCharacter);
+
+                // 75. Extract All Digits from a String and Sum Them
+
+
+                String digitsum = "hello 123 world 456";
+                Integer sum = digitsum.chars() 
+                                .mapToObj(x -> (char) x)
+                                .filter(x -> Character.isDigit(x))
+                                .map(x -> String.valueOf((char) x))
+                                .map(x -> Integer.valueOf(x))
+                                .reduce(0, (x, y) -> x + y);
+                System.out.println("sum :" + sum);
+
+                Integer sum1 = digitsum
+                                .chars()
+                                .filter(x -> Character.isDigit(x))
+                                .map(Character::getNumericValue)
+                                .sum();
+                System.out.println("sum1 :" + sum1);
 
         }
 
