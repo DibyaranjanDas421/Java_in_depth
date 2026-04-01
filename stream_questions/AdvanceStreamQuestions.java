@@ -1,6 +1,4 @@
 
-
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,7 +71,7 @@ public class AdvanceStreamQuestions {
                                 .findFirst();
                 System.out.println("nonRepeat:" + nonRepeat.get());
                 // 44. Find the First Repeated Character in a String
-                
+
                 Optional<Map.Entry<Character, Long>> Repeated = input.chars()
                                 .mapToObj(c -> (char) c)
                                 .collect(Collectors.groupingBy(c -> c, LinkedHashMap::new, Collectors.counting()))
@@ -85,15 +83,11 @@ public class AdvanceStreamQuestions {
 
                 // 45. Check if a String is a Palindrome
 
-                
                 String inputPalindrome = "madam";
                 Boolean isPalindrome = IntStream.range(0, inputPalindrome.length() / 2)
                                 .allMatch(i -> inputPalindrome.charAt(i) == inputPalindrome
                                                 .charAt(inputPalindrome.length() - 1 - i));
                 System.out.println("isPalindrome:" + isPalindrome);
-
-
-
 
                 // 46. Find All Anagrams of a String from a List
                 List<String> wordsAnagrams = List.of("listen", "silent", "enlist", "google", "inlets");

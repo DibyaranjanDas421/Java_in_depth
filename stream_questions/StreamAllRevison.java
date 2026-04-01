@@ -1,9 +1,10 @@
 
-
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -109,6 +110,35 @@ public class StreamAllRevison {
                                 .map(x -> x.getKey().toString())
                                 .collect(Collectors.joining(", "));
                 System.out.println(" duplicate :" + duplicate);
+
+                // Find the Maximum Element in a List
+
+                Integer maxElement = numbers
+                                .stream()
+                                .sorted(Comparator.reverseOrder())
+                                .findFirst()
+                                .orElse(null);
+                System.out.println("maxElement :" + maxElement);
+
+                // Find the Second-Largest Element in a List
+                Integer secondMaxElement = numbers
+                                .stream()
+                                .sorted(Comparator.reverseOrder())
+                                .skip(1)
+                                .findFirst()
+                                .orElse(null);
+                System.out.println("secondMaxElement :" + secondMaxElement);
+
+                // Find the First Repeated Character in a String
+                String inp = "hello";
+                Entry<Character, Long> c = inp.chars()
+                                .mapToObj(x -> (char) x)
+                                .collect(Collectors.groupingBy(x -> x, LinkedHashMap::new, Collectors.counting()))
+                                .entrySet()
+                                .stream()
+                                .filter(x -> x.getValue() == 1)
+                                .findFirst()
+                                .orElse(null);
 
         }
 

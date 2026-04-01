@@ -1,6 +1,12 @@
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class StreamStringManipulation {
         public static void main(String[] args) {
@@ -43,9 +49,8 @@ public class StreamStringManipulation {
 
                 // 75. Extract All Digits from a String and Sum Them
 
-
                 String digitsum = "hello 123 world 456";
-                Integer sum = digitsum.chars() 
+                Integer sum = digitsum.chars()
                                 .mapToObj(x -> (char) x)
                                 .filter(x -> Character.isDigit(x))
                                 .map(x -> String.valueOf((char) x))
@@ -59,6 +64,16 @@ public class StreamStringManipulation {
                                 .map(Character::getNumericValue)
                                 .sum();
                 System.out.println("sum1 :" + sum1);
+
+                // 76. Extract All Words from a String and Count Their Occurrences
+
+                String words = "hello world hello";
+
+                String[] removeSpace1 = words.split(" ");
+
+                Map<String, Long> duplicateCount = Arrays.stream(removeSpace1)
+                                .collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+                System.out.println("duplicateCount :" + duplicateCount);
 
         }
 
