@@ -28,6 +28,22 @@ public class AdvanceStreamQuestions {
         }
 
         public static void main(String[] args) throws IOException {
+
+                  List<String> palindromeWord = List.of("madam", "racecar", "apple", "banana", "level");
+
+                Optional<String> longestPalindrome = palindromeWord.stream()
+                                .filter(AdvanceStreamQuestions::isPalindrome)
+                                .sorted(Comparator.reverseOrder())
+                                .findFirst();
+                System.out.println("longestPalindrome :" + longestPalindrome);
+
+                String longestPalindrome1 = palindromeWord.stream()
+                                .filter(word -> word.equals(new StringBuilder(word).reverse().toString()))
+                                .max(Comparator.comparingInt(String::length))
+                                .orElse("");
+                System.out.println("Longest Palindrome: " + longestPalindrome);
+
+
                 // 41. Find the Most Frequent Element in a List
                 List<String> words = List.of("apple", "banana", "apple", "orange", "banana", "apple");
 
@@ -138,19 +154,7 @@ public class AdvanceStreamQuestions {
                                 .sum();
                 System.out.println("sumOfOdd:" + sumOfOdd);
                 // 52. Find the Longest Palindrome in a List of Strings
-                List<String> palindromeWord = List.of("madam", "racecar", "apple", "banana", "level");
-
-                Optional<String> longestPalindrome = palindromeWord.stream()
-                                .filter(AdvanceStreamQuestions::isPalindrome)
-                                .sorted(Comparator.reverseOrder())
-                                .findFirst();
-                System.out.println("longestPalindrome :" + longestPalindrome);
-
-                String longestPalindrome1 = words.stream()
-                                .filter(word -> word.equals(new StringBuilder(word).reverse().toString()))
-                                .max(Comparator.comparingInt(String::length))
-                                .orElse("");
-                System.out.println("Longest Palindrome: " + longestPalindrome);
+              
                 // 53. Find the Shortest Palindrome in a List of Strings
                 Optional<String> shortestPalindrome = palindromeWord.stream()
                                 .filter(AdvanceStreamQuestions::isPalindrome)
