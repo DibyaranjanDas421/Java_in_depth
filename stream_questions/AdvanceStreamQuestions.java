@@ -29,7 +29,7 @@ public class AdvanceStreamQuestions {
 
         public static void main(String[] args) throws IOException {
 
-                  List<String> palindromeWord = List.of("madam", "racecar", "apple", "banana", "level");
+                List<String> palindromeWord = List.of("madam", "racecar", "apple", "banana", "level");
 
                 Optional<String> longestPalindrome = palindromeWord.stream()
                                 .filter(AdvanceStreamQuestions::isPalindrome)
@@ -42,7 +42,6 @@ public class AdvanceStreamQuestions {
                                 .max(Comparator.comparingInt(String::length))
                                 .orElse("");
                 System.out.println("Longest Palindrome: " + longestPalindrome);
-
 
                 // 41. Find the Most Frequent Element in a List
                 List<String> words = List.of("apple", "banana", "apple", "orange", "banana", "apple");
@@ -154,7 +153,7 @@ public class AdvanceStreamQuestions {
                                 .sum();
                 System.out.println("sumOfOdd:" + sumOfOdd);
                 // 52. Find the Longest Palindrome in a List of Strings
-              
+
                 // 53. Find the Shortest Palindrome in a List of Strings
                 Optional<String> shortestPalindrome = palindromeWord.stream()
                                 .filter(AdvanceStreamQuestions::isPalindrome)
@@ -210,9 +209,10 @@ public class AdvanceStreamQuestions {
 
                 // 60. Find the Number of Unique Words in a File
 
-                
+                Path path1 = Paths.get("D:\\Java_In_depth\\collection\\Test.java");
+
                 try {
-                        long uniqueWord = Files.lines(path)
+                        long uniqueWord = Files.lines(path1)
                                         .flatMap(line -> Arrays.stream(line.split(" ")))
                                         .distinct()
                                         .count();
