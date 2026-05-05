@@ -63,21 +63,40 @@ public class StreamMathimaticalAndStatistical {
                 // System.out.println("cube :" + cube);
 
                 // 86. Find the Sum of All Prime Numbers in a List
-                
+
                 List<Integer> primeList = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
                 Integer primeSum = primeList.stream()
                                 .filter(x -> isPrime(x))
                                 .reduce((x, y) -> x + y)
                                 .orElse(0);
-                System.out.println("primeSum :" + primeSum);
+                // System.out.println("primeSum :" + primeSum);
 
                 int sumOfPrimes = primeList.stream()
                                 .filter(n -> n > 1 && IntStream.rangeClosed(2, (int) Math.sqrt(n))
                                                 .noneMatch(i -> n % i == 0))
                                 .mapToInt(Integer::intValue)
                                 .sum();
-                System.out.println("Sum of Primes: " + sumOfPrimes);
+                // System.out.println("Sum of Primes: " + sumOfPrimes);
+
+                // 87. Find the Sum of All Fibonacci Numbers in a List
+                List<Integer> numss = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+                Integer fibonacciSum = numss.stream()
+                                .filter(n -> {
+
+                                        int a = 0, b = 1;
+                                        while (b < n) {
+                                                int temp = b;
+                                                b = a + b;
+                                                a = temp;
+                                        }
+
+                                        return b == n;
+                                })
+                                .mapToInt(Integer::intValue)
+                                .sum();
+                System.out.println("fibonacciSum :" + fibonacciSum);
 
         }
 
