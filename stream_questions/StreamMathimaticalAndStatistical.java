@@ -4,6 +4,7 @@ import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.util.Map;
 
 public class StreamMathimaticalAndStatistical {
@@ -97,6 +98,112 @@ public class StreamMathimaticalAndStatistical {
                                 .mapToInt(Integer::intValue)
                                 .sum();
                 System.out.println("fibonacciSum :" + fibonacciSum);
+
+                // 88. Find the Sum of All Even-Indexed Elements in a List
+
+                int sumOfEvenIndex = IntStream.rangeClosed(0, numss.size() - 1)
+                                .filter(x -> x % 2 == 0)
+                                .map(numss::get)
+                                .sum();
+
+                System.out.println("sumOfEvenIndex :" + sumOfEvenIndex);
+
+                // 89. Find the Sum of All Odd-Indexed Elements in a List
+                int sumOfOddIndex = IntStream.range(0, numss.size())
+                                .filter(x -> !(x % 2 == 0))
+                                .map(numss::get)
+                                .sum();
+                System.out.println("sumOfOddIndex :" + sumOfOddIndex);
+
+                // 90. Find the Sum of All Elements Greater Than a Specific Value
+                int threshold = 5;
+
+                int sumAboveThreshold = numss.stream()
+                                .filter(n -> n > threshold)
+                                .mapToInt(Integer::intValue)
+                                .sum();
+
+                System.out.println("sumAboveThreshold :" + sumAboveThreshold);
+                // 91. Process a Large List of Numbers in Parallel
+                List<Integer> largeNumbers = IntStream.rangeClosed(1, 100000).boxed().collect(Collectors.toList());
+
+                Long sumOfLargeNumber = largeNumbers.parallelStream()
+                                .mapToLong(Integer::intValue)
+                                .sum();
+                System.out.println("sumOfLargeNumber :" + sumOfLargeNumber);
+
+                // 92. Find the Sum of All Elements in a List Using Parallel Streams
+
+                List<Integer> elements = List.of(1, 2, 3, 4, 5);
+
+                Integer sumOfAllElements = elements
+                                .stream()
+                                .mapToInt(Integer::intValue)
+                                .sum();
+                System.out.println("sumOfAllElements :" + sumOfAllElements);
+
+                // 93. Find the Maximum Element in a List Using Parallel Streams
+
+                Integer maxNumber = elements
+                                .parallelStream()
+                                .sorted(Comparator.reverseOrder())
+                                .findFirst()
+                                .orElse(null);
+                System.out.println("maxNumber :" + maxNumber);
+
+                Integer maxNumber1 = elements
+                                .parallelStream()
+                                .max(Integer::compare)
+                                .orElse(null);
+                System.out.println("maxNumber :" + maxNumber1);
+
+                // 94. Find the Minimum Element in a List Using Parallel Streams
+
+                Integer minNumber = elements
+                                .parallelStream()
+                                .min(Integer::min)
+                                .orElse(null);
+                System.out.println("minNUmber :" + minNumber);
+
+                // 95. Sort a List of Integers in Parallel Using Parallel Streams
+                List<Integer> sortedElements = elements
+                                .parallelStream()
+                                .sorted(Comparator.reverseOrder())
+                                .collect(Collectors.toList());
+                System.out.println("sorted elements :" + sortedElements);
+
+                // 96. Filter a List of Strings in Parallel Using Parallel Streams
+                List<String> words = List.of("apple", "banana", "kiwi", "mango");
+
+                List<String> filtered = words
+                                .parallelStream()
+                                .filter(w -> w.length() > 4)
+                                .collect(Collectors.toList());
+                System.out.println("filtered :" + filtered);
+
+                // 97. Count the Occurrences of Each Element in a List Using Parallel Streams
+                List<String> words1 = List.of("apple", "banana", "apple", "orange");
+
+                Map<String, Long> occurences = words1
+                                .parallelStream()
+                                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                System.out.println("occurences :" + occurences);
+
+                // 99. Merge Two Lists in Parallel Using Parallel Streams
+                List<Integer> list1 = List.of(1, 2, 3);
+                List<Integer> list2 = List.of(4, 5, 6);
+
+                List<Integer> merged = Stream.concat(list1.parallelStream(), list2.parallelStream())
+                                .collect(Collectors.toList());
+                System.out.println("merged :" + merged);
+
+                // 100. Find the Intersection of Two Lists Using Parallel Streams
+
+                List<Integer> interSection = list1
+                                .parallelStream()
+                                .filter(list2::contains)
+                                .collect(Collectors.toList());
+                System.out.println("Intersection :" + interSection);
 
         }
 
